@@ -27,7 +27,7 @@ export default function Searcher() {
   const handleChange = (e: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
     dispatch({
       type: 'SEARCH_WEATHER',
-      payload: e.target.value,
+      payload: e.currentTarget.value,
     });
   };
 
