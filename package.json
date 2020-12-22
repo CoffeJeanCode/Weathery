@@ -3,8 +3,8 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
-    "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "prettier --check \"src/**/*.{js,jsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "lint": "prettier --check \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "preact": "^10.0.0"
