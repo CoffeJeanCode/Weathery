@@ -57,3 +57,17 @@ declare module '*.png' {
 }
 
 /* CUSTOM: ADD YOUR OWN HERE */
+declare type ActionType = 'GET_WEATHER' | 'SEARCH_WEATHER';
+
+interface ActionReducer {
+  type: ActionType;
+  payload: any;
+}
+
+interface GlobalState {
+  location: string;
+  weather: string;
+  temp: string;
+  query: string;
+  date: Date;
+}

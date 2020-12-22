@@ -6,7 +6,7 @@ import App from './App';
 describe('<App>', () => {
   it('renders learn react link', () => {
     const { getByText } = render(<App />);
-    const linkElement = getByText(/learn preact/i);
+    const linkElement = getByText(/hello/i);
     expect(document.body.contains(linkElement));
   });
 });
