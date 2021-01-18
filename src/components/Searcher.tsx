@@ -1,27 +1,26 @@
 import { h } from 'preact';
+import api from '../config/api';
 import { useGlobalStore } from '../store/store';
 
 export default function Searcher() {
-  const [store, dispatch] = useGlobalStore();
+  const [{ query }, dispatch] = useGlobalStore();
 
-  const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement, Event>) => {
+  const handleSubmit = async (
+    e: h.JSX.TargetedEvent<HTMLFormElement, Event>,
+  ) => {
     e.preventDefault();
-    fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${
-        store.query
-      }&units=metric&apikey=${'9558b1a1b3168a18ce05956d6f03f2ba'}`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: 'GET_WEATHER',
-          payload: {
-            temp: `${Math.round(data.main.temp)} °C`,
-            location: `${data.sys.country} ${data.name}`,
-            weather: data.weather[0].main,
-          },
-        });
-      });
+    const { data } = await api.get(
+      `weather?q=${query}&units=metric&apikey=9558b1a1b3168a18ce05956d6f03f2ba`,
+    );
+
+    dispatch({
+      type: 'GET_WEATHER',
+      payload: {
+        temp: Math.round(data.main.temp),
+        location: `${data.sys.country} ${data.name}`,
+        weather: data.weather[0].main,
+      },
+    });
   };
 
   const handleChange = (e: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
@@ -32,11 +31,12 @@ export default function Searcher() {
   };
 
   return (
-    <form class="searcher" onSubmit={(e) => handleSubmit(e)}>
+    <form class="searcher" onSubmit={handleSubmit}>
       <input
-        value={store.query}
+        value={query}
         type="search"
         onInput={handleChange}
+        spellcheck
         placeholder="Search your contry"
         aria-placeholder="Search your contry"
       />

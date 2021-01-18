@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { useGlobalStore } from '../store/store';
+import api from '../config/api';
 
 const dateBuilder = (rawdate: Date) => {
   let months = [
@@ -38,27 +39,25 @@ const dateBuilder = (rawdate: Date) => {
 const WeatherInfo = () => {
   const [store, dispatch] = useGlobalStore();
   useEffect(() => {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${
-        store.query
-      }&units=metric&apikey=${'9558b1a1b3168a18ce05956d6f03f2ba'}`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: 'GET_WEATHER',
-          payload: {
-            temp: `${Math.round(data.main.temp)} °C`,
-            location: `${data.sys.country} ${data.name}`,
-            weather: data.weather[0].main,
-          },
-        });
+    (async () => {
+      const { data } = await api.get(
+        `weather?q=${store.query}&units=metric&apikey=9558b1a1b3168a18ce05956d6f03f2ba`,
+      );
+
+      dispatch({
+        type: 'GET_WEATHER',
+        payload: {
+          temp: Math.round(data.main.temp),
+          location: `${data.sys.country} ${data.name}`,
+          weather: data.weather[0].main,
+        },
       });
+    })();
   }, []);
 
   return (
     <div class="weather__info">
-      <h2>{store.temp}</h2>
+      <h2>{store.temp} °C</h2>
       <h3>{store.weather}</h3>
       <h4 className="location">{store.location}</h4>
       <p className="date">{dateBuilder(store.date)}</p>

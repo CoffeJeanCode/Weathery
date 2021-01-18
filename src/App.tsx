@@ -10,8 +10,8 @@ function App() {
     store.temp,
   ]);
   return (
-    <div className={`main__wrapper cold ${tempCondition}`}>
-      <main class={`app cold ${tempCondition}`}>
+    <div className={`main__wrapper  ${tempCondition}`}>
+      <main class={`app  ${tempCondition}`}>
         <Searcher />
         <WeatherInfo />
       </main>

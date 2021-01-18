@@ -11,7 +11,7 @@ const intialState: GlobalState = {
   date: new Date(),
   location: 'Co Bogota',
   weather: '228',
-  temp: '0 °C',
+  temp: 0,
   query: 'bogota',
 };
 
@@ -32,7 +32,10 @@ const reducer = (state: GlobalState, action: ActionReducer) => {
   }
 };
 
-const GlobalStore = createContext<any>(intialState);
+const GlobalStore = createContext<[GlobalState, (a: ActionReducer) => void]>([
+  intialState,
+  (a) => a,
+]);
 
 export const useGlobalStore = () => useContext(GlobalStore);
 

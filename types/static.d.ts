@@ -67,7 +67,7 @@ interface ActionReducer {
 interface GlobalState {
   location: string;
   weather: string;
-  temp: string;
+  temp: number;
   query: string;
   date: Date;
 }

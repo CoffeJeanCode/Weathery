@@ -7,7 +7,8 @@
     "lint": "prettier --check \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "preact": "^10.0.0"
+    "axios": "^0.21.1",
+    "preact": "^10.5.10"
   },
   "devDependencies": {
     "@prefresh/snowpack": "^2.0.1",
@@ -15,6 +16,7 @@
     "@snowpack/plugin-typescript": "^1.1.1",
     "@snowpack/web-test-runner-plugin": "^0.1.5",
     "@testing-library/preact": "^2.0.0",
+    "@types/axios": "^0.14.0",
     "@types/chai": "^4.2.14",
     "@web/test-runner": "^0.10.0",
     "chai": "^4.2.0",
